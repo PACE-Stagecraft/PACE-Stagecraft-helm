@@ -1,0 +1,68 @@
+replicaCount: 2
+
+image:
+  repository: ""
+  pullPolicy: IfNotPresent
+  tag: ""
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+  hosts:
+    - host: "api.agora.example.com"
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+
+serviceAccount:
+  create: true
+  name: "agora-api"
+  annotations:
+    eks.amazonaws.com/role-arn: ""
+
+environment: dev
+
+env:
+  AWS_REGION: "us-east-1"
+  BEDROCK_MODEL_ID: "anthropic.claude-3-5-sonnet-20241022-v2:0"
+  COOKIE_SECURE: "true"
+
+externalSecrets:
+  secretsManagerPath: ""
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8000
+  initialDelaySeconds: 15
+  periodSeconds: 20
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8000
+  initialDelaySeconds: 10
+  periodSeconds: 10

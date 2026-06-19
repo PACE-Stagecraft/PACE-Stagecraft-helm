@@ -1,0 +1,24 @@
+source:
+  targetRevision: main
+
+services:
+  - name: agora-api
+    path: charts/agora-api
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
+  - name: agora-webhook
+    path: charts/agora-webhook
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
+  - name: agora-worker
+    path: charts/agora-worker
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml
+  - name: agora-frontend
+    path: charts/agora-frontend
+    valuesFiles:
+      - values.yaml
+      - values.prod.yaml

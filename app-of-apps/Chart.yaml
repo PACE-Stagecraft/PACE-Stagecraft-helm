@@ -1,0 +1,4 @@
+apiVersion: v2
+name: agora-app-of-apps
+description: ArgoCD App of Apps — deploys all aGorA services from a single root Application
+version: 0.1.0

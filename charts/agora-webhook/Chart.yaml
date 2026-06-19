@@ -1,0 +1,5 @@
+apiVersion: v2
+name: agora-webhook
+description: aGorA Webhook Service — GitHub webhook receiver → SQS
+version: 0.1.0
+appVersion: "latest"

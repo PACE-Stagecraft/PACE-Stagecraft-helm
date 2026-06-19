@@ -1,0 +1,65 @@
+replicaCount: 2
+
+image:
+  repository: ""
+  pullPolicy: IfNotPresent
+  tag: ""
+
+service:
+  type: ClusterIP
+  port: 8001
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+  hosts:
+    - host: "webhooks.agora.example.com"
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 60
+
+serviceAccount:
+  create: true
+  name: "agora-webhook"
+  annotations:
+    eks.amazonaws.com/role-arn: ""
+
+environment: dev
+env:
+  AWS_REGION: "us-east-1"
+
+externalSecrets:
+  secretsManagerPath: ""
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8001
+  initialDelaySeconds: 10
+  periodSeconds: 20
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8001
+  initialDelaySeconds: 5
+  periodSeconds: 10

@@ -1,0 +1,17 @@
+image:
+  repository: ""
+  tag: "v0.1.0"
+
+replicaCount: 2
+
+environment: prod
+
+externalSecrets:
+  secretsManagerPath: agora/prod/api
+
+ingress:
+  hosts:
+    - host: "api.agora.example.com"
+      paths:
+        - path: /
+          pathType: Prefix

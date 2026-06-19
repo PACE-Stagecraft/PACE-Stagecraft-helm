@@ -1,0 +1,6 @@
+image:
+  repository: ""
+  tag: "latest"
+environment: dev
+externalSecrets:
+  secretsManagerPath: agora/dev/webhook
