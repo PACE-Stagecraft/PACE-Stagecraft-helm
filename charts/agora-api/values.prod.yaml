@@ -1,6 +1,6 @@
 image:
-  repository: ""
-  tag: "v0.1.0"
+  repository: "353284253443.dkr.ecr.us-east-1.amazonaws.com/agora-api"
+  tag: "v0.0.1"
 
 replicaCount: 2
 
