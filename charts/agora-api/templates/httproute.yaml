@@ -9,13 +9,14 @@ spec:
     - name: agora-gateway
       namespace: kgateway-system
       sectionName: http
-  hostnames:
-    - {{ .Values.gateway.host | quote }}
   rules:
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /api/v1
+        - path:
+            type: PathPrefix
+            value: /health
       backendRefs:
         - name: {{ include "agora-api.fullname" . }}
           port: {{ .Values.service.port }}
