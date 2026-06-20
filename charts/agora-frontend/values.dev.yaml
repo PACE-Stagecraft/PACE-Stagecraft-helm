@@ -1,6 +1,6 @@
 image:
-  repository: ""
-  tag: "latest"
+  repository: "353284253443.dkr.ecr.us-east-1.amazonaws.com/agora-frontend"
+  tag: "v0.0.2"
 environment: dev
 externalSecrets:
   secretsManagerPath: agora/dev/frontend
