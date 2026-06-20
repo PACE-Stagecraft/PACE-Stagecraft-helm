@@ -1,5 +1,5 @@
 image:
-  repository: "353284253443.dkr.ecr.us-east-1.amazonaws.com/agora-worker"
+  repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/agora-worker"
   tag: "v0.0.3"
 environment: dev
 externalSecrets:

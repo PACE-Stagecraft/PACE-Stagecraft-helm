@@ -31,7 +31,7 @@ serviceAccount:
   create: true
   name: "agora-api"
   annotations:
-    eks.amazonaws.com/role-arn: "arn:aws:iam::353284253443:role/agora-dev-agora-api"
+    eks.amazonaws.com/role-arn: "arn:aws:iam::591316257673:role/agora-dev-agora-api"
 
 environment: dev
 
