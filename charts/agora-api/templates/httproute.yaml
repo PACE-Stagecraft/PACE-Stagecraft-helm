@@ -17,6 +17,14 @@ spec:
         - path:
             type: PathPrefix
             value: /health
+        # WebSocket endpoint for live dashboard updates. Without this route the
+        # browser's ws://<host>/ws connection has no backend and fails, so the
+        # dashboard stops receiving run/remediation events and looks "stuck"
+        # until a manual refresh. Envoy/kGateway upgrades the connection
+        # automatically — no extra config needed beyond routing the path.
+        - path:
+            type: PathPrefix
+            value: /ws
       backendRefs:
         - name: {{ include "agora-api.fullname" . }}
           port: {{ .Values.service.port }}
