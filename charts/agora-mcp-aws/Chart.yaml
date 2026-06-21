@@ -1,6 +1,0 @@
-apiVersion: v2
-name: agora-mcp-aws
-description: MCP server exposing read-only AWS APIs (CloudWatch, SQS, ECR) as agent tools
-type: application
-version: 0.1.0
-appVersion: "0.1.0"
