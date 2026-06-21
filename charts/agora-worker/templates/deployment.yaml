@@ -22,10 +22,10 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
+          # No ports: the Celery worker doesn't serve HTTP. A templated
+          # containerPort with no value (worker has no service.port) renders
+          # empty and makes the Deployment invalid, which silently blocked
+          # every ArgoCD sync after v0.0.4.
           {{- if .Values.externalSecrets.secretsManagerPath }}
           envFrom:
             - secretRef:
