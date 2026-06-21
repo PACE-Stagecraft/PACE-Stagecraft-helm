@@ -58,4 +58,7 @@ readinessProbe:
   periodSeconds: 10
 
 migration:
-  enabled: false
+  # Run `alembic upgrade head` automatically as a PreSync hook before each
+  # rollout (see templates/migration-job.yaml). Keeps the DB schema in lock
+  # step with deployed code so schema changes can't take the app down.
+  enabled: true
