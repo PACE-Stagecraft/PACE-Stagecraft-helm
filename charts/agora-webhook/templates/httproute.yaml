@@ -9,13 +9,11 @@ spec:
     - name: agora-gateway
       namespace: kgateway-system
       sectionName: http
-  hostnames:
-    - {{ .Values.gateway.host | quote }}
   rules:
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /webhooks
       backendRefs:
         - name: {{ include "agora-webhook.fullname" . }}
           port: {{ .Values.service.port }}
