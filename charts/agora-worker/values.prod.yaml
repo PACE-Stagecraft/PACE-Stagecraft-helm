@@ -1,6 +1,6 @@
 image:
-  repository: "353284253443.dkr.ecr.us-east-1.amazonaws.com/agora-worker"
-  tag: "v0.0.1"
+  repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/agora-worker"
+  tag: "v0.0.22"
 environment: prod
 externalSecrets:
   secretsManagerPath: agora/prod/worker
