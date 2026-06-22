@@ -27,11 +27,16 @@ autoscaling:
   maxReplicas: 8
   targetCPUUtilizationPercentage: 60
 
+aws:
+  # Set via --set/--set-string in CI (from the AWS_ACCOUNT_ID org variable) or
+  # ArgoCD app values — never hardcode an account ID here.
+  mainAccountId: ""
+  clusterName: "agora-dev"
+
 serviceAccount:
   create: true
   name: "agora-webhook"
-  annotations:
-    eks.amazonaws.com/role-arn: "arn:aws:iam::591316257673:role/agora-dev-agora-webhook"
+  annotations: {}
 
 environment: dev
 env:

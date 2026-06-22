@@ -24,6 +24,9 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["python", "-m", "app.sqs_consumer"]
+          ports:
+            - name: health
+              containerPort: {{ .Values.healthPort }}
           {{- if .Values.externalSecrets.secretsManagerPath }}
           envFrom:
             - secretRef:
@@ -36,5 +39,13 @@ spec:
             - name: {{ $k }}
               value: {{ $v | quote }}
             {{- end }}
+          {{- if .Values.consumer.livenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.consumer.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.consumer.readinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.consumer.readinessProbe | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.consumer.resources | nindent 12 }}

@@ -11,3 +11,7 @@ externalSecrets:
 
 gateway:
   host: "api.dev.agora.example.com"
+
+aws:
+  mainAccountId: "591316257673"
+  clusterName: "agora-dev"

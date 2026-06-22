@@ -4,3 +4,7 @@ image:
 environment: dev
 externalSecrets:
   secretsManagerPath: agora/dev/worker
+
+aws:
+  mainAccountId: "591316257673"
+  clusterName: "agora-dev"

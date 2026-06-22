@@ -22,11 +22,16 @@ autoscaling:
   maxReplicas: 4
   targetCPUUtilizationPercentage: 70
 
+aws:
+  # Set via --set/--set-string in CI (from the AWS_ACCOUNT_ID org variable) or
+  # ArgoCD app values — never hardcode an account ID here.
+  mainAccountId: ""
+  clusterName: "agora-dev"
+
 serviceAccount:
   create: true
   name: "agora-worker"
-  annotations:
-    eks.amazonaws.com/role-arn: "arn:aws:iam::591316257673:role/agora-dev-agora-worker"
+  annotations: {}
 
 environment: dev
 env:
@@ -45,6 +50,30 @@ consumer:
     limits:
       cpu: 250m
       memory: 256Mi
+  livenessProbe:
+    httpGet:
+      path: /healthz
+      port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 15
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 10
 
-livenessProbe: {}
-readinessProbe: {}
+healthPort: 8080
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 20
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 10
