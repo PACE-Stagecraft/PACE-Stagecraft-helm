@@ -43,7 +43,13 @@ environment: dev
 env:
   AWS_REGION: "us-east-1"
   BEDROCK_MODEL_ID: "amazon.nova-pro-v1:0"
-  COOKIE_SECURE: "false"
+  # Browser <-> CloudFront is always HTTPS (CloudFront forces
+  # redirect-to-https); CloudFront <-> NLB <-> pod stays plain HTTP but never
+  # leaves AWS's network. The app's cookie_secure property already forces
+  # this to true in prod via is_production regardless of this value -- this
+  # was stale only for dev, which serves over HTTPS via the same CloudFront
+  # distribution and has no reason to differ.
+  COOKIE_SECURE: "true"
 
 externalSecrets:
   secretsManagerPath: ""

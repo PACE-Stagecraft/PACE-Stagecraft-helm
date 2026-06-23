@@ -17,5 +17,15 @@ spec:
               kubernetes.io/metadata.name: kgateway-system
       ports:
         - port: {{ .Values.service.port }}
+    # agora-mcp-github's search_remediations tool calls
+    # POST /internal/remediations/search directly, pod-to-pod (not through
+    # the gateway) — without this, enabling real NetworkPolicy enforcement
+    # (vpc-cni's enableNetworkPolicy) would silently block it.
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: agora-mcp-github
+      ports:
+        - port: {{ .Values.service.port }}
   egress:
     - {}
