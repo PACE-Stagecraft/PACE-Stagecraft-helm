@@ -2,7 +2,7 @@ image:
   # ECR only exists in the main account — this was previously pointing at the
   # Bedrock-only account, which would have failed to pull images.
   repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/agora-webhook"
-  tag: "v0.0.1"
+  tag: "v0.1.0"
 environment: prod
 externalSecrets:
   secretsManagerPath: agora/prod/webhook
