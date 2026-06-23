@@ -3,3 +3,6 @@ image:
   tag: "v0.1.0"
 
 environment: prod
+
+externalSecrets:
+  secretsManagerPath: agora/prod/mcp-github

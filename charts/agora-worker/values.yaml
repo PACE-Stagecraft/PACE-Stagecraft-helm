@@ -6,7 +6,13 @@ image:
   tag: ""
 
 service:
-  enabled: false
+  # Exposes the health-server's POST /internal/investigate to agora-api
+  # (the Investigator Agent's entry point). The health server itself was
+  # already running for liveness/readiness probes; this just makes it
+  # reachable from other pods instead of node-local-only.
+  enabled: true
+  type: ClusterIP
+  port: 8080
 
 resources:
   requests:

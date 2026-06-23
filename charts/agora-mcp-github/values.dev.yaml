@@ -3,3 +3,6 @@ image:
   tag: "develop-398845c2"
 
 environment: dev
+
+externalSecrets:
+  secretsManagerPath: agora/dev/mcp-github

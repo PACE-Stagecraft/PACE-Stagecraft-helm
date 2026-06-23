@@ -20,6 +20,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
+          {{- if .Values.externalSecrets.secretsManagerPath }}
+          envFrom:
+            - secretRef:
+                name: {{ include "agora-mcp-github.fullname" . }}-secrets
+          {{- end }}
           env:
             {{- range $k, $v := .Values.env }}
             - name: {{ $k }}
