@@ -27,5 +27,14 @@ spec:
               app.kubernetes.io/name: agora-mcp-github
       ports:
         - port: {{ .Values.service.port }}
+    # agora-frontend calls /api/v1/auth/me server-side (SSR) using the
+    # internal cluster DNS (API_URL_INTERNAL) to verify the JWT cookie
+    # before rendering the dashboard layout — must bypass the gateway.
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: agora-frontend
+      ports:
+        - port: {{ .Values.service.port }}
   egress:
     - {}
