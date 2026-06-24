@@ -15,3 +15,11 @@ gateway:
 aws:
   mainAccountId: "591316257673"
   clusterName: "agora-dev"
+
+# Fresh bootstrap note:
+# The migration hook deadlocks on a brand-new ArgoCD install because the
+# ExternalSecret/Secret do not exist yet when PreSync runs. Keep it disabled
+# for the dev bootstrap path; run alembic manually once if the DB schema ever
+# needs to be advanced on a fresh rebuild.
+migration:
+  enabled: false

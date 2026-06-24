@@ -32,7 +32,9 @@ spec:
         app.kubernetes.io/component: migration
     spec:
       restartPolicy: Never
-      serviceAccountName: {{ .Values.serviceAccount.name }}
+      # Use the namespace default SA here so the PreSync hook can bootstrap
+      # the release on a fresh install before the chart's normal ServiceAccount
+      # has been created by ArgoCD.
       containers:
         - name: migrate
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
