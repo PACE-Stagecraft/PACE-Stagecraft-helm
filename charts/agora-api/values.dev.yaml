@@ -1,6 +1,6 @@
 image:
   repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/agora-api"
-  tag: "develop-0fca27aa"
+  tag: "develop-22d26c1d"
 
 replicaCount: 1
 
