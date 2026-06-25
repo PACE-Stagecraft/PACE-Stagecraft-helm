@@ -1,6 +1,6 @@
 image:
   repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/agora-frontend"
-  tag: "develop-5e6e7c72"
+  tag: "develop-f97469d7"
 environment: dev
 env:
   NEXTAUTH_URL: "https://ustbiteshub.online"
