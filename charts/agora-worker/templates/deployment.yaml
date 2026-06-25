@@ -24,11 +24,6 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          # The Celery worker has no web framework, but app.main starts a
-          # tiny stdlib HTTP server on this fixed port for liveness/readiness
-          # probes. Hardcoded (not templated from service.port, which is
-          # unset for this headless worker) to avoid the empty-value bug
-          # that silently blocked ArgoCD sync after v0.0.4.
           ports:
             - name: health
               containerPort: {{ .Values.healthPort }}

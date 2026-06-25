@@ -6,10 +6,6 @@ image:
   tag: ""
 
 service:
-  # Exposes the health-server's POST /internal/investigate to agora-api
-  # (the Investigator Agent's entry point). The health server itself was
-  # already running for liveness/readiness probes; this just makes it
-  # reachable from other pods instead of node-local-only.
   enabled: true
   type: ClusterIP
   port: 8080
@@ -29,8 +25,6 @@ autoscaling:
   targetCPUUtilizationPercentage: 70
 
 aws:
-  # Set via --set/--set-string in CI (from the AWS_ACCOUNT_ID org variable) or
-  # ArgoCD app values — never hardcode an account ID here.
   mainAccountId: ""
   clusterName: "agora-dev"
 

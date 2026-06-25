@@ -11,8 +11,6 @@ spec:
     - Ingress
     - Egress
   ingress:
-    # agora-api calls POST /internal/investigate (the Investigator Agent's
-    # entry point) on the health-server port — everything else stays denied.
     - from:
         - podSelector:
             matchLabels:

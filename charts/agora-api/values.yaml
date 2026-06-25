@@ -28,8 +28,6 @@ autoscaling:
   targetCPUUtilizationPercentage: 70
 
 aws:
-  # Set via --set/--set-string in CI (from the AWS_ACCOUNT_ID org variable) or
-  # ArgoCD app values — never hardcode an account ID here.
   mainAccountId: ""
   clusterName: "agora-dev"
 
@@ -43,12 +41,6 @@ environment: dev
 env:
   AWS_REGION: "us-east-1"
   BEDROCK_MODEL_ID: "amazon.nova-pro-v1:0"
-  # Browser <-> CloudFront is always HTTPS (CloudFront forces
-  # redirect-to-https); CloudFront <-> NLB <-> pod stays plain HTTP but never
-  # leaves AWS's network. The app's cookie_secure property already forces
-  # this to true in prod via is_production regardless of this value -- this
-  # was stale only for dev, which serves over HTTPS via the same CloudFront
-  # distribution and has no reason to differ.
   COOKIE_SECURE: "true"
 
 externalSecrets:
@@ -69,7 +61,4 @@ readinessProbe:
   periodSeconds: 10
 
 migration:
-  # Run `alembic upgrade head` automatically as a PreSync hook before each
-  # rollout (see templates/migration-job.yaml). Keeps the DB schema in lock
-  # step with deployed code so schema changes can't take the app down.
   enabled: true

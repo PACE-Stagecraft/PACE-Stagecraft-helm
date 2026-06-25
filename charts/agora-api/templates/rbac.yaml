@@ -1,8 +1,4 @@
 {{- if .Values.serviceAccount.create }}
-# agora-api never calls the Kubernetes API — it only talks to Postgres,
-# Redis, SQS, Bedrock and GitHub. This Role intentionally grants nothing
-# (least privilege = the empty set), documented explicitly rather than
-# left implicit by omission.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:

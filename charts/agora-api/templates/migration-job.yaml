@@ -1,15 +1,4 @@
 {{- if .Values.migration.enabled }}
-# Runs `alembic upgrade head` as a PreSync hook — i.e. BEFORE the new API
-# pods roll out. This guarantees the database schema is migrated before any
-# new code that depends on it starts serving traffic, preventing the
-# "UndefinedColumn → app down until someone runs alembic by hand" class of
-# outage. If the migration fails, the sync fails and the old pods keep
-# serving (fail-safe).
-#
-# helm.sh/hook pre-install,pre-upgrade maps to ArgoCD's PreSync phase.
-# Note: on a brand-new install the ExternalSecret (a normal Sync resource)
-# does not exist yet, so the very first migration must be run manually once;
-# every subsequent deploy is handled automatically here.
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -32,9 +21,6 @@ spec:
         app.kubernetes.io/component: migration
     spec:
       restartPolicy: Never
-      # Use the namespace default SA here so the PreSync hook can bootstrap
-      # the release on a fresh install before the chart's normal ServiceAccount
-      # has been created by ArgoCD.
       containers:
         - name: migrate
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
