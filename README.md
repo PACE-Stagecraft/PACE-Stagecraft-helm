@@ -1,7 +1,7 @@
 ﻿# stagecraft-helm
 
 Helm charts for deploying [Stagecraft](https://github.com/Stagecraft-Ops) on EKS.
-Image tags are updated automatically by the `helm-update.yml` reusable workflow in [stagecraft-workflows](https://github.com/Stagecraft-Ops/stagecraft-workflows).
+Image tags are updated automatically by the `helm-update.yml` reusable workflow in [stagecraft-workflows](https://github.com/PACE-Stagecraft/PACE-Stagecraft-workflows).
 
 **Kubernetes namespace**: `stagecraft`
 
