@@ -1,5 +1,5 @@
 image:
-  repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/stagecraft-webhook"
+  repository: ""
   tag: "develop-6257911d"
 
 replicaCount: 1
@@ -19,7 +19,3 @@ resources:
 
 externalSecrets:
   secretsManagerPath: stagecraft/dev/webhook
-
-aws:
-  mainAccountId: "591316257673"
-  clusterName: "stagecraft-dev"
