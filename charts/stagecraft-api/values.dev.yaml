@@ -1,6 +1,6 @@
 image:
   repository: "686566045205.dkr.ecr.us-east-1.amazonaws.com/stagecraft-api"
-  tag: "develop-218fc8e3"
+  tag: "develop-5d226a99"
 
 replicaCount: 1
 
