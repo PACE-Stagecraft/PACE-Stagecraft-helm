@@ -1,0 +1,5 @@
+﻿apiVersion: v2
+name: stagecraft-frontend
+description: Stagecraft Frontend — Next.js 14 dashboard
+version: 0.1.0
+appVersion: "latest"

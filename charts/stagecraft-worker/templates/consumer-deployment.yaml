@@ -1,0 +1,51 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "stagecraft-worker.fullname" . }}-consumer
+  namespace: stagecraft
+  labels:
+    {{- include "stagecraft-worker.labels" . | nindent 4 }}
+    app.kubernetes.io/component: sqs-consumer
+spec:
+  replicas: {{ .Values.consumer.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "stagecraft-worker.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: sqs-consumer
+  template:
+    metadata:
+      labels:
+        {{- include "stagecraft-worker.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: sqs-consumer
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      containers:
+        - name: {{ .Chart.Name }}-consumer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["python", "-m", "app.sqs_consumer"]
+          ports:
+            - name: health
+              containerPort: {{ .Values.healthPort }}
+          {{- if .Values.externalSecrets.secretsManagerPath }}
+          envFrom:
+            - secretRef:
+                name: {{ include "stagecraft-worker.fullname" . }}-secrets
+          {{- end }}
+          env:
+            - name: ENVIRONMENT
+              value: {{ .Values.environment | quote }}
+            {{- range $k, $v := .Values.env }}
+            - name: {{ $k }}
+              value: {{ $v | quote }}
+            {{- end }}
+          {{- if .Values.consumer.livenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.consumer.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.consumer.readinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.consumer.readinessProbe | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.consumer.resources | nindent 12 }}

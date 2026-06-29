@@ -1,24 +1,24 @@
-source:
+﻿source:
   targetRevision: main
 
 services:
-  - name: agora-api
-    path: charts/agora-api
+  - name: stagecraft-api
+    path: charts/stagecraft-api
     valuesFiles:
       - values.yaml
       - values.prod.yaml
-  - name: agora-webhook
-    path: charts/agora-webhook
+  - name: stagecraft-webhook
+    path: charts/stagecraft-webhook
     valuesFiles:
       - values.yaml
       - values.prod.yaml
-  - name: agora-worker
-    path: charts/agora-worker
+  - name: stagecraft-worker
+    path: charts/stagecraft-worker
     valuesFiles:
       - values.yaml
       - values.prod.yaml
-  - name: agora-frontend
-    path: charts/agora-frontend
+  - name: stagecraft-frontend
+    path: charts/stagecraft-frontend
     valuesFiles:
       - values.yaml
       - values.prod.yaml

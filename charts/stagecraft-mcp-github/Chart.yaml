@@ -1,0 +1,6 @@
+﻿apiVersion: v2
+name: stagecraft-mcp-github
+description: MCP server exposing GitHub workflow and PR management APIs as agent tools
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

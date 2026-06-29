@@ -1,14 +1,14 @@
-argocd:
+﻿argocd:
   namespace: argocd
   project: default
 
 source:
-  repoURL: https://github.com/aGora-Ops/agora-helm.git
+  repoURL: https://github.com/Stagecraft-Ops/stagecraft-helm.git
   targetRevision: main
 
 destination:
   server: https://kubernetes.default.svc
-  namespace: agora
+  namespace: stagecraft
 
 syncPolicy:
   automated:
@@ -18,23 +18,23 @@ syncPolicy:
     - CreateNamespace=true
 
 services:
-  - name: agora-api
-    path: charts/agora-api
+  - name: stagecraft-api
+    path: charts/stagecraft-api
     valuesFiles:
       - values.yaml
       - values.dev.yaml
-  - name: agora-webhook
-    path: charts/agora-webhook
+  - name: stagecraft-webhook
+    path: charts/stagecraft-webhook
     valuesFiles:
       - values.yaml
       - values.dev.yaml
-  - name: agora-worker
-    path: charts/agora-worker
+  - name: stagecraft-worker
+    path: charts/stagecraft-worker
     valuesFiles:
       - values.yaml
       - values.dev.yaml
-  - name: agora-frontend
-    path: charts/agora-frontend
+  - name: stagecraft-frontend
+    path: charts/stagecraft-frontend
     valuesFiles:
       - values.yaml
       - values.dev.yaml

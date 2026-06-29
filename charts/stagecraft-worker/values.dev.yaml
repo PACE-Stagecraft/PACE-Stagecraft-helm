@@ -1,0 +1,10 @@
+﻿image:
+  repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/stagecraft-worker"
+  tag: "develop-017fc9fd"
+environment: dev
+externalSecrets:
+  secretsManagerPath: stagecraft/dev/worker
+
+aws:
+  mainAccountId: "591316257673"
+  clusterName: "stagecraft-dev"

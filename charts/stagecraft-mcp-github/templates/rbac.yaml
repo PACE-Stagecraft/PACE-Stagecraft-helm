@@ -1,0 +1,26 @@
+﻿{{- if .Values.serviceAccount.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "stagecraft-mcp-github.fullname" . }}
+  namespace: stagecraft
+  labels:
+    {{- include "stagecraft-mcp-github.selectorLabels" . | nindent 4 }}
+rules: []
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "stagecraft-mcp-github.fullname" . }}
+  namespace: stagecraft
+  labels:
+    {{- include "stagecraft-mcp-github.selectorLabels" . | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccount.name }}
+    namespace: stagecraft
+roleRef:
+  kind: Role
+  name: {{ include "stagecraft-mcp-github.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

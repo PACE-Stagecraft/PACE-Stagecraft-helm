@@ -1,0 +1,56 @@
+﻿replicaCount: 2
+
+image:
+  repository: ""
+  pullPolicy: IfNotPresent
+  tag: ""
+
+service:
+  type: ClusterIP
+  port: 3000
+
+gateway:
+  enabled: true
+  host: "stagecraft.example.com"
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+
+serviceAccount:
+  create: true
+  name: "stagecraft-frontend"
+  annotations: {}
+
+environment: dev
+env:
+  NEXT_PUBLIC_API_URL: ""
+  NEXTAUTH_URL: "https://stagecraft.example.com"
+  API_URL_INTERNAL: "http://stagecraft-api-stagecraft-api.stagecraft.svc.cluster.local:8000"
+
+externalSecrets:
+  secretsManagerPath: ""
+
+livenessProbe:
+  httpGet:
+    path: /api/health
+    port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 30
+
+readinessProbe:
+  httpGet:
+    path: /api/health
+    port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10

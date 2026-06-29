@@ -1,30 +1,30 @@
-# agora-helm
+﻿# stagecraft-helm
 
-Helm charts for deploying [aGorA](https://github.com/aGora-Ops) on EKS.
-Image tags are updated automatically by the `helm-update.yml` reusable workflow in [agora-workflows](https://github.com/aGora-Ops/agora-workflows).
+Helm charts for deploying [Stagecraft](https://github.com/Stagecraft-Ops) on EKS.
+Image tags are updated automatically by the `helm-update.yml` reusable workflow in [stagecraft-workflows](https://github.com/Stagecraft-Ops/stagecraft-workflows).
 
-**Kubernetes namespace**: `agora`
+**Kubernetes namespace**: `stagecraft`
 
 ## Charts
 
 | Chart | Port | Description |
 |-------|------|-------------|
-| `agora-api` | 8000 | FastAPI backend |
-| `agora-webhook` | 8001 | GitHub webhook receiver |
-| `agora-worker` | — | Celery worker + SQS consumer (2 Deployments) |
-| `agora-frontend` | 3000 | Next.js 14 dashboard |
+| `stagecraft-api` | 8000 | FastAPI backend |
+| `stagecraft-webhook` | 8001 | GitHub webhook receiver |
+| `stagecraft-worker` | — | Celery worker + SQS consumer (2 Deployments) |
+| `stagecraft-frontend` | 3000 | Next.js 14 dashboard |
 
 ## Secrets strategy
 
 Secrets are pulled from **AWS Secrets Manager** at runtime via [External Secrets Operator](https://external-secrets.io/).
 No secrets are stored in this repo or passed via `--set` at deploy time.
 
-Each chart has an `externalsecret.yaml` template pointing to a path like `agora/{env}/{service}`.
+Each chart has an `externalsecret.yaml` template pointing to a path like `stagecraft/{env}/{service}`.
 Create the secret in Secrets Manager before deploying:
 
 ```bash
 aws secretsmanager create-secret \
-  --name agora/dev/api \
+  --name stagecraft/dev/api \
   --secret-string '{
     "DATABASE_URL": "...",
     "SECRET_KEY": "...",
@@ -40,13 +40,13 @@ aws secretsmanager create-secret \
 
 ```bash
 # Deploy to dev
-helm upgrade --install agora-api charts/agora-api \
-  --namespace agora --create-namespace \
-  -f charts/agora-api/values.yaml \
-  -f charts/agora-api/values.dev.yaml \
-  --set image.repository=ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/agora-api \
+helm upgrade --install stagecraft-api charts/stagecraft-api \
+  --namespace stagecraft --create-namespace \
+  -f charts/stagecraft-api/values.yaml \
+  -f charts/stagecraft-api/values.dev.yaml \
+  --set image.repository=ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/stagecraft-api \
   --set image.tag=v0.1.0 \
-  --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=arn:aws:iam::ACCOUNT:role/agora-dev-agora-api
+  --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=arn:aws:iam::ACCOUNT:role/stagecraft-dev-stagecraft-api
 ```
 
 ## CI

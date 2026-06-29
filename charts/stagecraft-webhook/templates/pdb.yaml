@@ -1,0 +1,14 @@
+﻿{{- if gt (int .Values.replicaCount) 1 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "stagecraft-webhook.fullname" . }}
+  namespace: stagecraft
+  labels:
+    {{- include "stagecraft-webhook.labels" . | nindent 4 }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      {{- include "stagecraft-webhook.selectorLabels" . | nindent 6 }}
+{{- end }}

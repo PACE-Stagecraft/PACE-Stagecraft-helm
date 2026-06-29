@@ -1,0 +1,17 @@
+﻿image:
+  repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/stagecraft-api"
+  tag: "v0.2.0"
+
+replicaCount: 2
+
+environment: prod
+
+externalSecrets:
+  secretsManagerPath: stagecraft/prod/api
+
+gateway:
+  host: "api.stagecraft.example.com"
+
+aws:
+  mainAccountId: "591316257673"
+  clusterName: "stagecraft-prod"

@@ -1,0 +1,20 @@
+﻿image:
+  repository: "591316257673.dkr.ecr.us-east-1.amazonaws.com/stagecraft-api"
+  tag: "develop-cf7a9cda"
+
+replicaCount: 1
+
+environment: dev
+
+externalSecrets:
+  secretsManagerPath: stagecraft/dev/api
+
+gateway:
+  host: "api.dev.stagecraft.example.com"
+
+aws:
+  mainAccountId: "591316257673"
+  clusterName: "stagecraft-dev"
+
+migration:
+  enabled: false
