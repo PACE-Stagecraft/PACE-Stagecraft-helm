@@ -1,6 +1,6 @@
 image:
-  repository: ""
-  tag: "develop-6257911d"
+  repository: "686566045205.dkr.ecr.us-east-1.amazonaws.com/stagecraft-webhook"
+  tag: "develop-4aeb087c"
 
 replicaCount: 1
 
