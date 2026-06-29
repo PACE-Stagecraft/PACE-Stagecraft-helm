@@ -1,6 +1,6 @@
 image:
   repository: "686566045205.dkr.ecr.us-east-1.amazonaws.com/stagecraft-worker"
-  tag: "develop-1a8113fd"
+  tag: "develop-9f183963"
 
 replicaCount: 1
 
